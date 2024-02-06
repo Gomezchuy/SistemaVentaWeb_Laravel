@@ -4,7 +4,6 @@ use Illuminate\Support\Facades\Facade;
 use Illuminate\Support\ServiceProvider;
 
 return [
-
     /*
     |--------------------------------------------------------------------------
     | Application Name
@@ -16,7 +15,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Laravel'),
+    'name' => env('APP_NAME', 'Bagisto'),
 
     /*
     |--------------------------------------------------------------------------
@@ -25,7 +24,7 @@ return [
     |
     | This value determines the "environment" your application is currently
     | running in. This may determine how you prefer to configure various
-    | services the application utilizes. Set this in your ".env" file.
+    | services your application utilizes. Set this in your ".env" file.
     |
     */
 
@@ -42,7 +41,7 @@ return [
     |
     */
 
-    'debug' => (bool) env('APP_DEBUG', false),
+    'debug' => env('APP_DEBUG', false),
 
     /*
     |--------------------------------------------------------------------------
@@ -57,7 +56,17 @@ return [
 
     'url' => env('APP_URL', 'http://localhost'),
 
-    'asset_url' => env('ASSET_URL'),
+    /*
+    |--------------------------------------------------------------------------
+    | Application Admin URL
+    |--------------------------------------------------------------------------
+    |
+    | This URL suffix is used to define the admin url for example
+    | admin/ or backend/
+    |
+    */
+
+    'admin_url' => env('APP_ADMIN_URL', 'admin'),
 
     /*
     |--------------------------------------------------------------------------
@@ -70,7 +79,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => env('APP_TIMEZONE', 'Asia/Kolkata'),
 
     /*
     |--------------------------------------------------------------------------
@@ -83,7 +92,7 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => env('APP_LOCALE', 'en'),
 
     /*
     |--------------------------------------------------------------------------
@@ -100,16 +109,40 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Faker Locale
+    | Default Country
     |--------------------------------------------------------------------------
     |
-    | This locale will be used by the Faker PHP library when generating fake
-    | data for your database seeds. For example, this will be used to get
-    | localized telephone numbers, street address information and more.
+    | Here you may specify the default country by country code.
+    | Ensure it is uppercase and reflects the 'code' column of the
+    | countries table.
+    |
+    | for example: DE EN FR
+    | (use capital letters!)
+    */
+
+    'default_country' => null,
+
+    /*
+    |--------------------------------------------------------------------------
+    | Base Currency Code
+    |--------------------------------------------------------------------------
+    |
+    | Here you may specify the base currency code for your application.
     |
     */
 
-    'faker_locale' => 'en_US',
+    'currency' => env('APP_CURRENCY', 'USD'),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Default channel Code
+    |--------------------------------------------------------------------------
+    |
+    | Here you may specify the default channel code for your application.
+    |
+    */
+
+    'channel' => 'default',
 
     /*
     |--------------------------------------------------------------------------
@@ -128,24 +161,6 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Maintenance Mode Driver
-    |--------------------------------------------------------------------------
-    |
-    | These configuration options determine the driver used to determine and
-    | manage Laravel's "maintenance mode" status. The "cache" driver will
-    | allow maintenance mode to be controlled across multiple machines.
-    |
-    | Supported drivers: "file", "cache"
-    |
-    */
-
-    'maintenance' => [
-        'driver' => 'file',
-        // 'store' => 'redis',
-    ],
-
-    /*
-    |--------------------------------------------------------------------------
     | Autoloaded Service Providers
     |--------------------------------------------------------------------------
     |
@@ -156,18 +171,58 @@ return [
     */
 
     'providers' => ServiceProvider::defaultProviders()->merge([
-        /*
-         * Package Service Providers...
+        /**
+         * Package service providers.
          */
+        Astrotomic\Translatable\TranslatableServiceProvider::class,
+        Barryvdh\DomPDF\ServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
+        Konekt\Concord\ConcordServiceProvider::class,
+        Maatwebsite\Excel\ExcelServiceProvider::class,
+        Prettus\Repository\Providers\RepositoryServiceProvider::class,
 
-        /*
-         * Application Service Providers...
+        /**
+         * Application service providers.
          */
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+
+        /**
+         * Webkul package service providers.
+         */
+        Webkul\Admin\Providers\AdminServiceProvider::class,
+        Webkul\Attribute\Providers\AttributeServiceProvider::class,
+        Webkul\CartRule\Providers\CartRuleServiceProvider::class,
+        Webkul\CatalogRule\Providers\CatalogRuleServiceProvider::class,
+        Webkul\Category\Providers\CategoryServiceProvider::class,
+        Webkul\Checkout\Providers\CheckoutServiceProvider::class,
+        Webkul\CMS\Providers\CMSServiceProvider::class,
+        Webkul\Core\Providers\CoreServiceProvider::class,
+        Webkul\Core\Providers\EnvValidatorServiceProvider::class,
+        Webkul\Customer\Providers\CustomerServiceProvider::class,
+        Webkul\DataGrid\Providers\DataGridServiceProvider::class,
+        Webkul\DebugBar\Providers\DebugBarServiceProvider::class,
+        Webkul\FPC\Providers\FPCServiceProvider::class,
+        Webkul\Installer\Providers\InstallerServiceProvider::class,
+        Webkul\Inventory\Providers\InventoryServiceProvider::class,
+        Webkul\Marketing\Providers\MarketingServiceProvider::class,
+        Webkul\Notification\Providers\NotificationServiceProvider::class,
+        Webkul\Payment\Providers\PaymentServiceProvider::class,
+        Webkul\Paypal\Providers\PaypalServiceProvider::class,
+        Webkul\Product\Providers\ProductServiceProvider::class,
+        Webkul\Rule\Providers\RuleServiceProvider::class,
+        Webkul\Sales\Providers\SalesServiceProvider::class,
+        Webkul\Shipping\Providers\ShippingServiceProvider::class,
+        Webkul\Shop\Providers\ShopServiceProvider::class,
+        Webkul\Sitemap\Providers\SitemapServiceProvider::class,
+        Webkul\SocialLogin\Providers\SocialLoginServiceProvider::class,
+        Webkul\SocialShare\Providers\SocialShareServiceProvider::class,
+        Webkul\Tax\Providers\TaxServiceProvider::class,
+        Webkul\Theme\Providers\ThemeServiceProvider::class,
+        Webkul\User\Providers\UserServiceProvider::class,
     ])->toArray(),
 
     /*
@@ -182,7 +237,17 @@ return [
     */
 
     'aliases' => Facade::defaultAliases()->merge([
-        // 'Example' => App\Facades\Example::class,
+        'Captcha'      => Webkul\Customer\Facades\Captcha::class,
+        'Cart'         => Webkul\Checkout\Facades\Cart::class,
+        'Concord'      => Konekt\Concord\Facades\Concord::class,
+        'Core'         => Webkul\Core\Facades\Core::class,
+        'Datagrid'     => Webkul\Ui\DataGrid\Facades\DataGrid::class,
+        'Excel'        => Maatwebsite\Excel\Facades\Excel::class,
+        'Helper'       => Konekt\Concord\Facades\Helper::class,
+        'Image'        => Intervention\Image\Facades\Image::class,
+        'PDF'          => Barryvdh\DomPDF\Facade\Pdf::class,
+        'ProductImage' => Webkul\Product\Facades\ProductImage::class,
+        'ProductVideo' => Webkul\Product\Facades\ProductVideo::class,
+        'Redis'        => Illuminate\Support\Facades\Redis::class,
     ])->toArray(),
-
 ];
