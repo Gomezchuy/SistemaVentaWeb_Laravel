@@ -20,6 +20,7 @@ return new class extends Migration
             $table->foreign('theme_customization_id')->references('id')->on('theme_customizations')->onDelete('cascade');
         });
 
+        
         DB::table('theme_customization_translations')   
         ->insert([
             [
@@ -181,7 +182,9 @@ return new class extends Migration
                 ]),
             ],
         ]);
+        
     }
+    
 
     /**
      * Reverse the migrations.

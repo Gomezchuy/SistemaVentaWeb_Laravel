@@ -738,6 +738,7 @@ return [
         ],
     ],
 
+    /*
     'home' => [
         'index' => [
             'offer'               => 'Get UPTO 40% OFF on your 1st order SHOP NOW',
@@ -745,6 +746,7 @@ return [
             'verify-email'        => 'Verify your email account',
         ],
     ],
+    */
 
     'errors' => [
         'go-to-home'   => 'Go To Home',

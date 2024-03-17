@@ -2,7 +2,6 @@
     $channel = core()->getCurrentChannel();
 @endphp
 
-
 {{-- SEO Meta Content --}}
 @push ('meta')
     <meta name="title" content="{{ $channel->home_seo['meta_title'] ?? '' }}" />
@@ -26,7 +25,7 @@
         @switch ($customization->type)
             {{-- Image Carousel --}}
             @case ($customization::IMAGE_CAROUSEL)
-                <x-shop::carousel :options="$data"></x-shop::carousel>
+                <!--    <x-shop::carousel :options="$data"></x-shop::carousel>  //Esto mostraba el carrusel  --> 
 
                 @break
 
